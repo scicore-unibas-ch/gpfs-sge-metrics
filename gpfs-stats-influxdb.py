@@ -33,22 +33,23 @@ INFLUXDB_PASSWD = 'root'
 
 def main():
 
-    global_stats = get_gpfs_global_stats()
+    #global_stats = get_gpfs_global_stats()
     stats_by_fs = get_gpfs_stats_by_fs()
     now = int(time.time())
     lines = []
 
-    hostname = global_stats['gpfs_node_hostname']
+    #hostname = global_stats['gpfs_node_hostname']
+    hostname = stats_by_fs[0]['gpfs_node_hostname']
     #print global_stats
 
     # global perf stats. All filesystems
     # for global stats filesystem name is hardcoded to "all_fs" and gpfs_cluster is hardcoded to "all"
-    for key, value in global_stats.iteritems():
-        if key is not 'gpfs_node_hostname':
-            values = (str(key), "hostname="+hostname, "gpfs_fs=all_fs", "gpfs_cluster=all", "value_int="+str(value)+"i", str(now))
-            values = '{0},{1},{2},{3} {4} {5}'.format(*values)
-            #print values
-            lines.append((values))
+    #for key, value in global_stats.iteritems():
+        #if key is not 'gpfs_node_hostname':
+            #values = (str(key), "hostname="+hostname, "gpfs_fs=all_fs", "gpfs_cluster=all", "value_int="+str(value)+"i", str(now))
+            #values = '{0},{1},{2},{3} {4} {5}'.format(*values)
+            ##print values
+            #lines.append((values))
 
     # by filesystem perf stats
     for fs in stats_by_fs:
