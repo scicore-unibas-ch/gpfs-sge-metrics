@@ -45,7 +45,7 @@ def main():
     # for global stats filesystem name is hardcoded to "all_fs" and gpfs_cluster is hardcoded to "all"
     for key, value in global_stats.iteritems():
         if key is not 'gpfs_node_hostname':
-            values = (str(key), "hostname="+hostname, "fs=all_fs", "gpfs_cluster=all", "value_int="+str(value)+"i", str(now))
+            values = (str(key), "hostname="+hostname, "gpfs_fs=all_fs", "gpfs_cluster=all", "value_int="+str(value)+"i", str(now))
             values = '{0},{1},{2},{3} {4} {5}'.format(*values)
             #print values
             lines.append((values))
@@ -57,7 +57,7 @@ def main():
                 gpfs_cluster = fs['gpfs_cluster']
                 #gpfs_cluster = gpfs_cluster.replace(".","_")
                 fs_name = fs['fs_name']
-                values = (str(key), "hostname="+hostname, "fs="+fs_name, "gpfs_cluster="+gpfs_cluster, "value_int="+str(value)+"i", str(now))
+                values = (str(key), "hostname="+hostname, "gpfs_fs="+fs_name, "gpfs_cluster="+gpfs_cluster, "value_int="+str(value)+"i", str(now))
                 values = '{0},{1},{2},{3} {4} {5}'.format(*values)
                 #print values
                 lines.append((values))
