@@ -30,10 +30,7 @@ INFLUXDB_DBNAME = 'test2'
 INFLUXDB_USER = 'root'
 INFLUXDB_PASSWD = 'root'
 
-# We add this as a tag when inserting to influxdb so we can classify the 
-# data for the different gpfs environments we have at sciCORE
-gpfs_env = "GPFS4_GSS"
- 
+
 def main():
 
     global_stats = get_gpfs_global_stats()
@@ -44,11 +41,11 @@ def main():
     hostname = global_stats['gpfs_node_hostname']
     #print global_stats
 
-
     # global perf stats. All filesystems
+    # for global stats filesystem name is hardcoded to "all_fs" and gpfs_cluster is hardcoded to "all"
     for key, value in global_stats.iteritems():
         if key is not 'gpfs_node_hostname':
-            values = (str(key), "hostname="+hostname, "fs=all_fs", "gpfs_env="+gpfs_env, "value_int="+str(value)+"i", str(now))
+            values = (str(key), "hostname="+hostname, "fs=all_fs", "gpfs_cluster=all", "value_int="+str(value)+"i", str(now))
             values = '{0},{1},{2},{3} {4} {5}'.format(*values)
             #print values
             lines.append((values))
@@ -57,14 +54,13 @@ def main():
     for fs in stats_by_fs:
         for key, value in fs.iteritems():
             if key is not 'gpfs_node_hostname' and key is not 'gpfs_cluster' and key is not 'fs_name':
-                #gpfs_cluster = fs['gpfs_cluster']
+                gpfs_cluster = fs['gpfs_cluster']
                 #gpfs_cluster = gpfs_cluster.replace(".","_")
                 fs_name = fs['fs_name']
-                values = (str(key), "hostname="+hostname, "fs="+fs_name, "gpfs_env="+gpfs_env, "value_int="+str(value)+"i", str(now))
+                values = (str(key), "hostname="+hostname, "fs="+fs_name, "gpfs_cluster="+gpfs_cluster, "value_int="+str(value)+"i", str(now))
                 values = '{0},{1},{2},{3} {4} {5}'.format(*values)
                 #print values
                 lines.append((values))
-                
 
     message = '\n'.join(lines) + '\n'
 
