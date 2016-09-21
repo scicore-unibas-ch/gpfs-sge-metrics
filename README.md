@@ -4,9 +4,15 @@ I execute this script with cron every minute in each of my gpfs clients.
 
 This is what you can get in grafana:
 
+## GPFS STATISTICS
+
 ![alt tag](https://raw.githubusercontent.com/pescobar/influxdb/master/screenshots/gpfs-stats-1.png)
 
 ![alt tag](https://raw.githubusercontent.com/pescobar/influxdb/master/screenshots/gpfs-stats-2.png)
 
 ![alt tag](https://raw.githubusercontent.com/pescobar/influxdb/master/screenshots/gpfs-stats-3.png)
+
+## GRIDENGINE STATISTICS
+
+![alt tag](https://raw.githubusercontent.com/pescobar/influxdb/master/screenshots/grafana-cluster-status.jpg)
 
