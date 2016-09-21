@@ -417,7 +417,7 @@ def get_used_swap_by_host(hosts):
 def parse_qstat():
     " returns a list of dictionaries. Each dictionary contains the info for a job"
 
-    qstat_xml_output = Popen(["qstat", "-ext", "-g", "d", "-u", "*", "-r", "-xml"], stdout=PIPE).communicate()[0]
+    qstat_xml_output = Popen(["qstat", "-s", "r", "-ext", "-g", "d", "-u", "*", "-r", "-xml"], stdout=PIPE).communicate()[0]
     tree = ET.ElementTree(ET.fromstring(qstat_xml_output))
     root = tree.getroot()
 
